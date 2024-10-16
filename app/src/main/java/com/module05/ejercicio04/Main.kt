@@ -18,6 +18,14 @@ fun main(){
     lista.agregarUsuario(usuario5)
 
     println(lista.mostrarLista())
+
+    var listFiltrada = lista.filtrarListaPorEdad(25)
+
+    println("\n\nLista FILTRADA")
+
+    for (ls in listFiltrada){
+        println("${ls.getNombre()} - ${ls.getEdad()} años")
+    }
 }
 
 class Usuario(
@@ -31,9 +39,15 @@ class Usuario(
         return nombre
     }
 
+    fun getEdad():Int{
+        return edad
+    }
+
     fun mostrarDatos():Unit{
         println("$nombre - $edad años ${if(trabajo != null) "- $trabajo" else ""} ${if(referencia != null) "- Recomendado por: ${referencia?.nombre}" else ""}")
     }
+
+
 }
 
 class ListaUsuarios(
@@ -51,5 +65,9 @@ class ListaUsuarios(
         for (lista in listaUsuarios){
             lista.mostrarDatos()
         }
+    }
+
+    fun filtrarListaPorEdad(edad: Int):List<Usuario> {
+        return listaUsuarios.filter { it.getEdad() > edad }.toList()
     }
 }
